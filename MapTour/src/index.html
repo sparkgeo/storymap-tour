@@ -186,7 +186,8 @@
 						name: 'storymaps',
 						location: location.pathname.replace(/\/[^/]+$/, '/') + 'app/storymaps'
 					}
-				]
+				],
+                paths: { maptiks: '//cdn.maptiks.com/esri3' }
 			};
 
 			if (location.search.match(/locale=([\w\-]+)/)) {
@@ -856,6 +857,7 @@
 				<div class="tab"></div>
 				<div class="tab"></div>
 				<div class="tab"></div>
+                <div class="tab"></div>
 			</div>
 			<div class="modal-body">
 				<!-- Layout -->
@@ -1005,7 +1007,23 @@
 						</div>
 					</form>
 				</div>
-			</div>
+                <!-- Maptiks-->
+                <div id="settings-maptiks" class="tab-content">
+					<form class="form-horizontal">
+						<p></p>
+						<div class="control-group" style="margin-bottom: 5px">
+                          <label class="control-label" for="maptiks-trackcode"></label>
+                          <div class="controls">
+                              <input type="text" class="input-sm" id="maptiks-trackcode" />
+                          </div>
+                          <label class="control-label" for="maptiks-id"></label>
+                          <div class="controls">
+                                <input type="text" class="input-sm" id="maptiks-id" />
+                          </div>
+						</div>
+					</form>
+				</div>
+            </div>
 			<div class="modal-footer">
 				<span class="error"></span>
 				<button class="btnSave btn btn-primary" data-dismiss="modal"></button>

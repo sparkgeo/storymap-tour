@@ -1,4 +1,5 @@
-define(["storymaps/maptour/core/WebApplicationData",
+define(["maptiks/mapWrapper",
+        "storymaps/maptour/core/WebApplicationData",
 		"storymaps/maptour/core/TourPointAttributes",
 		"storymaps/maptour/core/FeatureServiceManager",
 		"storymaps/maptour/core/MapTourHelper",
@@ -30,7 +31,8 @@ define(["storymaps/maptour/core/WebApplicationData",
 		"dojo/query",
 		"dojo/dom-geometry"], 
 	function (
-		WebApplicationData, 
+		mapWrapper,
+        WebApplicationData, 
 		TourPointAttributes,
 		FeatureServiceManager, 
 		MapTourHelper,
@@ -69,6 +71,26 @@ define(["storymaps/maptour/core/WebApplicationData",
 			{			
 				_core = core;
 				
+                // *******************************************
+                // **** Maptiks Changes below
+                // *******************************************
+
+                // After a map is loaded (when the map starts to render)
+                topic.subscribe("maptour-ready", function(){
+                  var container = app.map.container; // the current map div
+                  var maptiksMapOptions = {
+                    extent: app.map.extent,
+                    maptiks_trackcode: app.data.getWebAppData().values.maptiks.maptiksTrackcode, // from Builder map options
+                    maptiks_id: app.data.getWebAppData().values.maptiks.maptiksId + ":" + app.map.id // from Builder map options, ID:mapID
+                  };
+                  mapWrapper(container, maptiksMapOptions, app.map);
+                });
+
+                
+                // *******************************************
+                // **** Maptiks Changes done
+                // *******************************************
+              
 				/*
 				// Disable CORS on IE 10
 				if( has("ie") == 10 ) {
