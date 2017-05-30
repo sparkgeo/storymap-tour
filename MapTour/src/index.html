@@ -44,7 +44,7 @@
 				//   if the authorizedOwners property is specified (see below)
 				// - If an application id is specified, the webmap configuration isn't used
 				webmap: "",
-				appid: "",
+				appid: "8d9f724243cd401c902eb522ee0a995b",
 				// Optional list of authorized application or web map owners
 				// Has to be specified when using appid or webmap url parameters (e.g. ["user1"], ["user1", "user2"])
 				// To authorize all users you can use ["*"]
@@ -187,7 +187,7 @@
 						location: location.pathname.replace(/\/[^/]+$/, '/') + 'app/storymaps'
 					}
 				],
-                paths: { maptiks: '//cdn.maptiks.com/esri3' }
+                aliases: [['maptiks', '//cdn.maptiks.com/esri3/mapWrapper.js']]
 			};
 
 			if (location.search.match(/locale=([\w\-]+)/)) {

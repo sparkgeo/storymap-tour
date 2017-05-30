@@ -1,4 +1,4 @@
-define(["maptiks/mapWrapper",
+define([
         "storymaps/maptour/core/WebApplicationData",
 		"storymaps/maptour/core/TourPointAttributes",
 		"storymaps/maptour/core/FeatureServiceManager",
@@ -31,7 +31,6 @@ define(["maptiks/mapWrapper",
 		"dojo/query",
 		"dojo/dom-geometry"], 
 	function (
-		mapWrapper,
         WebApplicationData, 
 		TourPointAttributes,
 		FeatureServiceManager, 
@@ -77,13 +76,15 @@ define(["maptiks/mapWrapper",
 
                 // After a map is loaded (when the map starts to render)
                 topic.subscribe("maptour-ready", function(){
-                  var container = app.map.container; // the current map div
-                  var maptiksMapOptions = {
-                    extent: app.map.extent,
-                    maptiks_trackcode: app.data.getWebAppData().values.maptiks.maptiksTrackcode, // from Builder map options
-                    maptiks_id: app.data.getWebAppData().values.maptiks.maptiksId + ":" + app.map.id // from Builder map options, ID:mapID
-                  };
-                  mapWrapper(container, maptiksMapOptions, app.map);
+                  require(['maptiks'], function (mapWrapper) {
+                    var container = app.map.container; // the current map div
+                    var maptiksMapOptions = {
+                      extent: app.map.extent,
+                      maptiks_trackcode: app.data.getWebAppData().values.maptiks.maptiksTrackcode, // from Builder map options
+                      maptiks_id: app.data.getWebAppData().values.maptiks.maptiksId + ":" + app.map.id // from Builder map options, ID:mapID
+                    };
+                    mapWrapper(container, maptiksMapOptions, app.map);
+                  });
                 });
 
                 
