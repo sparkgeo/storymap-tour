@@ -74,7 +74,6 @@ define([
                 // **** Maptiks Changes below
                 // *******************************************
 
-                // After a map is loaded (when the map starts to render)
                 topic.subscribe("maptour-ready", function(){
                   require(['maptiks'], function (mapWrapper) {
                     var container = app.map.container; // the current map div
@@ -87,7 +86,6 @@ define([
                   });
                 });
 
-                
                 // *******************************************
                 // **** Maptiks Changes done
                 // *******************************************
