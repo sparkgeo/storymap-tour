@@ -26,6 +26,7 @@ Help content:
  * [Introduction](#introduction)
  * [How to deploy a Map Tour](#how-to-deploy-a-map-tour)
  * [Data storage options](#data-storage-options)
+ * [Maptiks integration](#maptiks-integration)
  * [FAQ](#faq)
  * [Tips](#tips)
  * [Customize the look and feel](#customize-the-look-and-feel)
@@ -174,6 +175,42 @@ If possible, it is more safe to add that extra field to your data.
 ### Importing pictures from online photo sharing services
 
 Using the interactive builder, you can create a webmap to be reused in the downloadable. That webmap will use photos that are already online, such as images stored in a photo sharing site like Flickr or images stored on your own website. Images will be referenced in your web map via their URLs and a feature collection. This mean that pictures are not stored in ArcGIS Online. If hosted pictures can't be accessed, they won't be available in the Map Tour and you'll see a 'Picture not available' image. Depending on your photo service provider, the Map Tour may not import the name, description and location of the pictures. Those attributes are stored in the web map and any edits to the online services won't be reflected in the Map Tour.
+
+## Maptiks integration
+
+1. Add the Maptiks wrapper as a package alias in `index.html`:
+
+    ```
+    var dojoConfig = {
+        // ...
+        aliases: [
+            // ...
+            ['maptiks', '//cdn.maptiks.com/esri3/mapWrapper.js']
+        ]
+    };
+    ```
+
+2. Story map applications provide [dojo/topics](https://dojotoolkit.org/reference-guide/1.9/dojo/topic.html) (global events), that we can subscribe to in order to monitor the application life cycle. One such topic is "maptour-ready", which fires when the application loads. By listening to this event within `MainView.js`, we ensure that Maptiks monitors the current map, and switches to the correct map when the user switches maps..
+
+    Story map applications also provide helper functions, within the "app" global variable, which stores information about the app, including settings specified by the author within the application builder. Below, we use the app variable to determine the current map div and extent, as well as Maptiks parameters entered by the author in the application builder. If the builder UI is unnecessary, these values may be hard-coded in development.
+
+    See the [Developer guide](#developer-guide) for more information about topics and helper functions.
+    
+    Finally, require the Maptiks package and create the mapWrapper object, which will communicate with Maptiks using the trackcode associated with your domain and ID of your choice.
+
+    ```
+    topic.subscribe("maptour-ready", function(){
+        require(['maptiks'], function (mapWrapper) {
+            var container = app.map.container; // the current map div
+            var maptiksMapOptions = {
+                extent: app.map.extent,
+                maptiks_trackcode: app.data.getWebAppData().values.maptiks.maptiksTrackcode, // from Builder map options
+                maptiks_id: app.data.getWebAppData().values.maptiks.maptiksId + ":" + app.map.id // from Builder map options, ID:mapID
+            };
+            mapWrapper(container, maptiksMapOptions, app.map);
+        });
+    });
+    ```
 
 ## FAQ
 

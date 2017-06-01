@@ -267,7 +267,15 @@ define(["storymaps/maptour/core/FieldConfig", "dojo/_base/lang"],
 			setWebmap: function(webmap)
 			{
 				_data.values.webmap = webmap;
-			}
+			},
+            getMaptiks: function ()
+            {
+              return _data.values.maptiks || {};
+            },
+            setMaptiks: function (data)
+            {
+              _data.values.maptiks = data;
+            }
 		};
 	}
 );

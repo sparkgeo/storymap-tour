@@ -21,6 +21,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 		"storymaps/maptour/builder/SettingsPopupTabFields",
 		"storymaps/builder/SettingsPopupTabExtent",
 		"storymaps/maptour/builder/SettingsPopupTabZoom",
+        "storymaps/builder/SettingsPopupTabMaptiks",
 		// Utils
 		"dojo/topic",
 		"dojo/query",
@@ -49,6 +50,7 @@ define(["storymaps/maptour/core/WebApplicationData",
 		SettingsPopupTabFields,
 		SettingsPopupTabExtent,
 		SettingsPopupTabZoom,
+        SettingsPopupTabMaptiks,
 		// Utils
 		topic,
 		query,
@@ -233,13 +235,14 @@ define(["storymaps/maptour/core/WebApplicationData",
 
 			this.getSettingsTab = function(_tabsBar, _tabContent, params)
 			{
-				return [
-					new SettingsPopupTabLayout(_tabsBar.eq(0), _tabContent.eq(0)),
+                return [
+                    new SettingsPopupTabLayout(_tabsBar.eq(0), _tabContent.eq(0)),
 					new SettingsPopupTabColors(_tabsBar.eq(1), _tabContent.eq(1), params.colorSchemes),
 					new SettingsPopupTabHeader(_tabsBar.eq(2), _tabContent.eq(2), params.defaultLogoURL),
 					new SettingsPopupTabFields(_tabsBar.eq(3), _tabContent.eq(3)),
 					new SettingsPopupTabExtent(_tabsBar.eq(4), _tabContent.eq(4)),
-					new SettingsPopupTabZoom(_tabsBar.eq(5), _tabContent.eq(5))
+					new SettingsPopupTabZoom(_tabsBar.eq(5), _tabContent.eq(5)),
+                    new SettingsPopupTabMaptiks(_tabsBar.eq(6), _tabContent.eq(6))
 				];
 			};
 
@@ -274,7 +277,10 @@ define(["storymaps/maptour/core/WebApplicationData",
 						},
 						{
 							zoomLevel: WebApplicationData.getZoomLevel()
-						}
+						},
+                        {
+                            maptiks: WebApplicationData.getMaptiks()
+                        }
 					],
 					fieldsError ? 3 : null
 				);
@@ -326,6 +332,9 @@ define(["storymaps/maptour/core/WebApplicationData",
 				else
 					WebApplicationData.setZoomLevel("");
 
+                // Maptiks
+                WebApplicationData.setMaptiks(data.settings[6]);
+              
 				topic.publish("BUILDER_INCREMENT_COUNTER", 1);
 				topic.publish("CORE_UPDATE_UI");
 			}
