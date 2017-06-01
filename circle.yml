@@ -13,9 +13,9 @@ machine:
 
 dependencies:
   override:
-    - npm install
-    - npm install -g grunt-cli
-    - cd /MapTour && grunt
+    - cd MapTour && npm install
+    - cd MapTour && npm install -g grunt-cli
+    - cd MapTour && grunt
 
 test:
   override:
