@@ -12,10 +12,12 @@ machine:
     AWS_DEFAULT_REGION: us-west-2
 
 dependencies:
+  pre:
+    - cd MapTour
   override:
     - npm install
     - npm install -g grunt-cli
-    - cd MapTour && grunt
+    - grunt
 
 test:
   override:
@@ -47,6 +49,7 @@ deployment:
   dev:
     branch: develop
     commands:
+      - pwd
       # - find . -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' {} +
       - aws s3 sync MapTour/deploy/ s3://templates-dev.maptiks.com/MapTour/ --delete --quiet
       - >
