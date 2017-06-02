@@ -75,15 +75,17 @@ define([
                 // *******************************************
 
                 topic.subscribe("maptour-ready", function(){
-                  require(['maptiks'], function (mapWrapper) {
-                    var container = app.map.container; // the current map div
-                    var maptiksMapOptions = {
-                      extent: app.map.extent,
-                      maptiks_trackcode: app.data.getWebAppData().values.maptiks.maptiksTrackcode, // from Builder map options
-                      maptiks_id: app.data.getWebAppData().values.maptiks.maptiksId + ":" + app.map.id // from Builder map options, ID:mapID
-                    };
-                    mapWrapper(container, maptiksMapOptions, app.map);
-                  });
+                  if (app.data.getWebAppData().values.maptiks) {
+	                  require(['maptiks'], function (mapWrapper) {
+	                    var container = app.map.container; // the current map div
+	                    var maptiksMapOptions = {
+	                      extent: app.map.extent,
+	                      maptiks_trackcode: app.data.getWebAppData().values.maptiks.maptiksTrackcode, // from Builder map options
+	                      maptiks_id: app.data.getWebAppData().values.maptiks.maptiksId + ":" + app.map.id // from Builder map options, ID:mapID
+	                    };
+	                    mapWrapper(container, maptiksMapOptions, app.map);
+	                  });
+                	}
                 });
 
                 // *******************************************
