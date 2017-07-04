@@ -1,0 +1,61 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+      <style>
+        html, 
+        body {
+            height: 100%;
+        }
+        iframe,
+        #maptiks-map {width:49%;
+                      height: 100%;
+                      display:inline-block;
+                      }
+      </style>
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+      <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet-src.js"></script>
+
+      <!-- Load Esri Leaflet from CDN -->
+      <script src="https://unpkg.com/esri-leaflet@2.0.8"></script>
+      <script data-dojo-config="async: 1" src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"></script>
+    </head>
+    <body>
+        <div id="maps-container" style="width:100%; height:100%;">
+          <div id="maptiks-map"> </div>
+        </div>
+        <script>
+          var iframe = document.createElement('iframe');
+          iframe.onload = function() {
+            require(["dojo/topic"],
+              function(topic){
+                var win = iframe.contentWindow || iframe;
+                win.dojo.subscribe("maptiks-ready", function(){
+                  var Lmap = L.map("maptiks-map");
+
+                  var esriExtent = win.app.map.geographicExtent;
+                  var leafletExtent = L.latLngBounds([L.latLng(esriExtent.ymin, esriExtent.xmin),L.latLng(esriExtent.ymax, esriExtent.xmax)]);
+
+                  Lmap.fitBounds(leafletExtent);
+
+                  L.esri.basemapLayer("Gray").addTo(Lmap);
+
+                  win.app.map.maptiks.off("maptiks:track");
+                  win.app.map.maptiks.on("maptiks:track", function (e) {
+                    console.log(e); // prints maptiks parameters
+                    var position = e.hasOwnProperty("position") ? [e.position[1], e.position[0]] : [e.map_center[1], e.map_center[0]];
+
+                    var marker = L.marker(position).addTo(Lmap);
+                    var contentString = '<div id="content">'+
+                      "<h1>" + e.action + "</h1><br>" +
+                      "<pre>" + JSON.stringify(e, null, 2) + "</pre>" + "</div>";
+                    marker.bindPopup(contentString).openPopup();
+                  });
+                });
+              }
+            )
+          }
+          iframe.src = 'index.html' + window.location.search; 
+          document.getElementById("maps-container").appendChild(iframe);
+        </script>
+    </body>
+</html>
