@@ -6,9 +6,13 @@
         body {
             height: 100%;
         }
-        iframe,
+        iframe {width:49%;
+                height: 100%;
+                display:inline-block;
+                }
         #maptiks-map {width:49%;
-                      height: 100%;
+                      height: 95%;
+                      top: 5px;
                       display:inline-block;
                       }
       </style>
@@ -21,8 +25,8 @@
     </head>
     <body>
         <div id="maps-container" style="width:100%; height:100%;">
-          <div id="div-dev-txt" style="z-index:1000; position:absolute; width:49%; top: 5%;text-align:center;">
-            <span style="font-size: 2.2vw; font-family: Lucida Grande;">Developer Console<br>See Maptiks Code in Action!</span>
+          <div id="div-dev-txt" style="position:absolute; width:49%; height: 5%; top: 0px;text-align:center;">
+            <span style="font-size: 2.2vh; font-family: Lucida Grande; vertical-align: middle;"><u>Developer Console</u><br>See Maptiks Code in Action!</span>
           </div>
           <div id="maptiks-map"> </div>
         </div>
