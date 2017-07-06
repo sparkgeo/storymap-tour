@@ -24,7 +24,7 @@ else {
 				loadingIndicator = new LoadingIndicator("", "loadingMessage");
 				loadingIndicator.setMessage(i18n.viewer.loading.step1);
 
-				require(["storymaps/maptour/core/Maptiks", "storymaps/core/Core", "storymaps/maptour/core/MainView", "storymaps/utils/Helper"], function(Maptiks, Core, MainView, Helper){
+				require(["storymaps/core/Core", "storymaps/maptour/core/MainView", "storymaps/utils/Helper"], function(Core, MainView, Helper){
 					var urlParams = Helper.getUrlParams();
 					var isInBuilderMode = urlParams.edit != null || urlParams.fromScratch != null || urlParams.fromscratch != null || urlParams.fromGallery != null;
 
