@@ -1,5 +1,4 @@
 define([
-    "./Maptiks",
     "storymaps/maptour/core/WebApplicationData",
     "storymaps/maptour/core/TourPointAttributes",
     "storymaps/maptour/core/FeatureServiceManager",
@@ -32,7 +31,6 @@ define([
     "dojo/query",
     "dojo/dom-geometry"],
   function (
-    Maptiks,
     WebApplicationData,
     TourPointAttributes,
     FeatureServiceManager,
