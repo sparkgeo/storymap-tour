@@ -30,7 +30,9 @@
 		"MegaPixImage": false,
 		"Hammer": false,
 		"iScroll": false,
-		"History": false
+		"History": false,
+      
+        "L": true
 	},
 
 	"expr": true,
