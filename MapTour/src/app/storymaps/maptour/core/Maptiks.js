@@ -10,7 +10,7 @@ define(["dojo/topic"],
           };
           mapWrapper(container, maptiksMapOptions, app.map);
         }
-        topic.publish("demo-ready", mapWrapper);
+        topic.publish("maptiks-ready", mapWrapper);
       });
     });
   }
