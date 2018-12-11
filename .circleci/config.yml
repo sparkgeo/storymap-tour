@@ -70,7 +70,7 @@ jobs:
           name: Envir Injection
           command: |
             find . -name 'demo.html' -exec sed -i 's/c311cf16-ad79-42b1-97f9-f433be6c8b00/f3abdf3b-1b2b-4631-a2b7-5201b5b6d66f/g' {} +
-            find . -name 'main-config.js' -exec sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' {} +
+            find . -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-staging.maptiks.com/g' {} +
       - run:
           name: deploy to aws
           command: aws s3 sync deploy/ s3://templates-staging.maptiks.com/MapTour/ --delete --quiet
@@ -88,7 +88,7 @@ jobs:
           name: Envir Injection
           command: |
             find . -name 'demo.html' -exec sed -i 's/c311cf16-ad79-42b1-97f9-f433be6c8b00/c28cbfab-8f6a-4cc3-abe8-9209dcf5ec93/g' {} +
-            find . -name 'main-config.js' -exec sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' {} +
+            find . -name 'index.html' -exec sed -i 's/cdn.maptiks.com/cdn-dev.maptiks.com/g' {} +
       - run:
           name: deploy to aws
           command: aws s3 sync deploy/ s3://templates-dev.maptiks.com/MapTour/ --delete --quiet
